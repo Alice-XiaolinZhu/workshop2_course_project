@@ -1,0 +1,41 @@
+{%load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project/search</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    
+</head>
+<body>
+
+<div>
+    <form method="POST" action="?q={{ content }}" target="_blank">
+        <br>
+            {{ form }}
+            {% csrf_token %}
+            <button type="submit" value="Search" class="submit" href="?q={{ content }}" style="background-color:#778899;font-size:10px;width:60px;height:25px; border-radius:6px; padding: 8px 5px;">Browse</button>
+        </br>
+        <h4>
+            Related text files for "{{ content }}":   
+        </h4>
+    </form>
+</div>
+
+        
+    {% for f_name,l_index in dict.items %}
+    <div>
+        <a href="details/?q={{ f_name }}"> {{ f_name }} </a>
+        <p style="font-size:12px"> Index of lines include the word: {{ l_index }} </p>
+    </div>
+    <div>
+        {% empty %}
+    </div>
+    {% endfor %}
+
+<h5>
+    Server time: {{ time }} s
+</h5>
+
+</body>
+</html>
